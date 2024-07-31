@@ -1,6 +1,6 @@
 const Macro = require('./model/macro');
 
-exports.createMacro = async (req, res) => {
+const createMacro = async (req, res) => {
   try {
     const macro = new Macro(req.body);
     await macro.save();
@@ -10,7 +10,7 @@ exports.createMacro = async (req, res) => {
   }
 };
 
-exports.getMacros = async (req, res) => {
+const getMacros = async (req, res) => {
   try {
     const macros = await Macro.find();
     res.json(macros);
@@ -19,7 +19,7 @@ exports.getMacros = async (req, res) => {
   }
 };
 
-exports.updateMacro = async (req, res) => {
+const updateMacro = async (req, res) => {
   try {
     const macro = await Macro.findByIdAndUpdate(req.params.id, req.body, { new: true });
     res.json(macro);
@@ -28,11 +28,18 @@ exports.updateMacro = async (req, res) => {
   }
 };
 
-exports.deleteMacro = async (req, res) => {
+const deleteMacro = async (req, res) => {
   try {
     await Macro.findByIdAndDelete(req.params.id);
     res.json({ message: 'Macro deleted' });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
+};
+
+module.exports = {
+  createMacro,
+  getMacros,
+  updateMacro,
+  deleteMacro,
 };
