@@ -11,4 +11,4 @@ const MacroSchema = new mongoose.Schema({
     required: true },
 });
 
-module.exports = mongoose.model('Macro', MacroSchema);
+module.exports = mongoose.model('macro', MacroSchema);
