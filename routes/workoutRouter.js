@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router();
-const workoutController = require('./user/controller/workoutController')
+const workoutController = require('./user/controller/workoutController').default
 
 // GET all workouts
 router.get('/', (req, res) => {
