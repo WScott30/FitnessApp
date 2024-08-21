@@ -2,7 +2,7 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const User = require('../models/User');
+const User = require('./user/controller/model');
 
 const router = express.Router();
 
@@ -18,7 +18,7 @@ router.post('/register', async (req, res) => {
     user.password = await bcrypt.hash(password, salt);
     await user.save();
     const payload = { user: { id: user.id } };
-    jwt.sign(payload, 'your_jwt_secret', { expiresIn: 3600 }, (err, token) => {
+    jwt.sign(payload, 'jwt_secret', { expiresIn: 3600 }, (err, token) => {
       if (err) throw err;
       res.json({ token });
     });
@@ -40,7 +40,7 @@ router.post('/login', async (req, res) => {
       return res.status(400).json({ msg: 'Invalid Credentials' });
     }
     const payload = { user: { id: user.id } };
-    jwt.sign(payload, 'your_jwt_secret', { expiresIn: 3600 }, (err, token) => {
+    jwt.sign(payload, 'jwt_secret', { expiresIn: 3600 }, (err, token) => {
       if (err) throw err;
       res.json({ token });
     });
